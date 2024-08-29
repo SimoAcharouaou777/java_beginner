@@ -5,16 +5,34 @@ public class Hotelmanagement {
     private String name;
     private int numberOfRooms;
     private ArrayList<ClientH> Clients;
+    private ArrayList<Reservation2> Reservations;
     public Hotelmanagement(String name, int numberOfRooms) {
         this.name = name;
         this.numberOfRooms = numberOfRooms;
         this.Clients =  new ArrayList<>();
+        this.Reservations = new ArrayList<>();
     }
     public String getName(){
         return name;
     }
     public int getNumberOfRooms(){
         return numberOfRooms;
+    }
+    public void showReservations(String ClientName){
+        boolean hasReservation = false;
+        for(Reservation2 reservation : this.Reservations){
+            if(ClientName.equals(reservation.getClientName())){
+                hasReservation = true;
+                System.out.println("Reservation informations  : ");
+                System.out.println("ReservationID : "+reservation.getReservationID());
+                System.out.println("ClientName : "+reservation.getClientName());
+                System.out.println("start date : "+reservation.getReservationStartDate());
+                System.out.println("end date : "+reservation.getReservationEndDate());
+            }
+        }
+        if(!hasReservation){
+            System.out.println("No reservation found");
+        }
     }
 
     public static void main(String[] args) {
@@ -66,6 +84,28 @@ public class Hotelmanagement {
                                     case 2:
                                         System.out.println(" enter the number of rooms you wanna reserve");
                                         int numberOfreservations = sc.nextInt();
+                                        System.out.println("enter your name");
+                                        String reservationName = sc.next();
+                                        System.out.println("Enter the starting date");
+                                        String startDate = sc.next();
+                                        System.out.println("Enter the ending date");
+                                        String endDate = sc.next();
+                                        if(hotel.getNumberOfRooms() >= numberOfreservations){
+                                            int getNumberOfRooms =- numberOfreservations;
+                                            int ReservationID = hotel.Reservations.size()+1;
+                                            Reservation2 Reservation = new Reservation2(ReservationID,reservationName, numberOfreservations, startDate,endDate);
+                                            hotel.Reservations.add(Reservation);
+                                            System.out.println("the reservation is complete");
+                                        }else{
+                                            System.out.println("there is no enough rooms");
+                                        }
+                                        break;
+                                    case 3:
+                                        System.out.println("Enter your name");
+                                        String ClientName = sc.next();
+                                        System.out.println("Reservation information : ");
+                                        hotel.showReservations(ClientName);
+                                        break;
                                 }
                             }else{
                                 System.out.println("you are logged out");
@@ -103,6 +143,37 @@ public class Hotelmanagement {
     }
     public String getPassword() {
         return password;
+    }
+
+}
+class Reservation2{
+    private int ReservationID;
+    private String ClientName;
+    private int ReservedRooms;
+    private String ReservationStartDate;
+    private String ReservationEndDate;
+
+    public Reservation2(int ReservationID, String ClientName, int ReservedRooms, String ReservationStartDate, String ReservationEndDate) {
+        this.ReservationID = ReservationID;
+        this.ClientName = ClientName;
+        this.ReservedRooms = ReservedRooms;
+        this.ReservationStartDate = ReservationStartDate;
+        this.ReservationEndDate = ReservationEndDate;
+    }
+    public int getReservationID() {
+        return ReservationID;
+    }
+    public String getClientName() {
+        return ClientName;
+    }
+    public int getReservedRooms() {
+        return ReservedRooms;
+    }
+    public String getReservationStartDate() {
+        return ReservationStartDate;
+    }
+    public String getReservationEndDate() {
+        return ReservationEndDate;
     }
 
 }

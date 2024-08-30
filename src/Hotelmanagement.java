@@ -72,44 +72,47 @@ public class Hotelmanagement {
                         if(loginName.equals(client.getName()) && password.equals(client.getPassword())){
                             loggedIn = true;
                             if(loggedIn == true){
-                                System.out.println("-------------------------------------");
-                                System.out.println("1- See how many rooms are availabe in our hotel\n");
-                                System.out.println("2- reserve a room\n");
-                                System.out.println("3- see your reservations\n");
-                                int answer2 = sc.nextInt();
-                                switch (answer2) {
-                                    case 1:
-                                        System.out.println(" the number of rooms availabe are : "+ hotel.getNumberOfRooms());
-                                        break;
-                                    case 2:
-                                        System.out.println(" enter the number of rooms you wanna reserve");
-                                        int numberOfreservations = sc.nextInt();
-                                        System.out.println("enter your name");
-                                        String reservationName = sc.next();
-                                        System.out.println("Enter the starting date");
-                                        String startDate = sc.next();
-                                        System.out.println("Enter the ending date");
-                                        String endDate = sc.next();
-                                        if(hotel.getNumberOfRooms() >= numberOfreservations){
-                                            int getNumberOfRooms =- numberOfreservations;
-                                            int ReservationID = hotel.Reservations.size()+1;
-                                            Reservation2 Reservation = new Reservation2(ReservationID,reservationName, numberOfreservations, startDate,endDate);
-                                            hotel.Reservations.add(Reservation);
-                                            System.out.println("the reservation is complete");
-                                        }else{
-                                            System.out.println("there is no enough rooms");
-                                        }
-                                        break;
-                                    case 3:
-                                        System.out.println("Enter your name");
-                                        String ClientName = sc.next();
-                                        System.out.println("Reservation information : ");
-                                        hotel.showReservations(ClientName);
-                                        break;
+                                while(loggedIn == true){
+                                    System.out.println("-------------------------------------");
+                                    System.out.println("1- See how many rooms are availabe in our hotel\n");
+                                    System.out.println("2- reserve a room\n");
+                                    System.out.println("3- see your reservations\n");
+                                    int answer2 = sc.nextInt();
+                                    switch (answer2) {
+                                        case 1:
+                                            System.out.println(" the number of rooms availabe are : "+ hotel.getNumberOfRooms());
+                                            break;
+                                        case 2:
+                                            System.out.println(" enter the number of rooms you wanna reserve");
+                                            int numberOfreservations = sc.nextInt();
+                                            System.out.println("enter your name");
+                                            String reservationName = sc.next();
+                                            System.out.println("Enter the starting date");
+                                            String startDate = sc.next();
+                                            System.out.println("Enter the ending date");
+                                            String endDate = sc.next();
+                                            if(hotel.getNumberOfRooms() >= numberOfreservations){
+                                                  hotel.numberOfRooms -=  numberOfreservations;
+                                                int ReservationID = hotel.Reservations.size()+1;
+                                                Reservation2 Reservation = new Reservation2(ReservationID,reservationName, numberOfreservations, startDate,endDate);
+                                                hotel.Reservations.add(Reservation);
+                                                System.out.println("the reservation is complete");
+                                            }else{
+                                                System.out.println("there is no enough rooms");
+                                            }
+                                            break;
+                                        case 3:
+                                            System.out.println("Enter your name");
+                                            String ClientName = sc.next();
+                                            System.out.println("Reservation information : ");
+                                            hotel.showReservations(ClientName);
+                                            break;
+                                    }
+                                }if(loggedIn == false){
+                                    System.out.println("you are logged out");
                                 }
-                            }else{
-                                System.out.println("you are logged out");
-                            }
+                                }
+
 
 
                         }else{

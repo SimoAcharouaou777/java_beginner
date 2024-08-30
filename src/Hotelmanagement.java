@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.Scanner;
 
 public class Hotelmanagement {
@@ -33,6 +34,19 @@ public class Hotelmanagement {
         if(!hasReservation){
             System.out.println("No reservation found");
         }
+    }
+
+    public void CanselReservation(int ReservationID){
+           Iterator<Reservation2> iterator = this.Reservations.iterator();
+           while(iterator.hasNext()){
+               Reservation2 reservation = iterator.next();
+               if(reservation.getReservationID() == ReservationID){
+                   this.numberOfRooms+=reservation.getReservedRooms();
+                   iterator.remove();
+                   System.out.println("Reservation has been cancelled");
+                   return;
+               }
+           }
     }
 
     public static void main(String[] args) {
@@ -77,6 +91,8 @@ public class Hotelmanagement {
                                     System.out.println("1- See how many rooms are availabe in our hotel\n");
                                     System.out.println("2- reserve a room\n");
                                     System.out.println("3- see your reservations\n");
+                                    System.out.println("4- Cansel a reservation\n");
+                                    System.out.println("5- Edite a reservation\n");
                                     int answer2 = sc.nextInt();
                                     switch (answer2) {
                                         case 1:
@@ -107,6 +123,22 @@ public class Hotelmanagement {
                                             System.out.println("Reservation information : ");
                                             hotel.showReservations(ClientName);
                                             break;
+                                        case 4:
+                                            System.out.println("Enter your name ");
+                                            String ReservationName = sc.next();
+                                            System.out.println("Enter the password");
+                                            String ClientPassword = sc.next();
+                                            for(ClientH Client : hotel.Clients){
+                                                if(ReservationName.equals(Client.getName()) && ClientPassword.equals(Client.getPassword())){
+                                                    System.out.println("Enter your reservation ID");
+                                                    int ReservationID = sc.nextInt();
+                                                    hotel.CanselReservation(ReservationID);
+                                                    System.out.println("reservation canseled successfully");
+                                                }else{
+                                                    System.out.println("reservation not found");
+                                                }
+                                            }
+
                                     }
                                 }if(loggedIn == false){
                                     System.out.println("you are logged out");

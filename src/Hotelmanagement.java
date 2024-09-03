@@ -138,6 +138,34 @@ public class Hotelmanagement {
                                                     System.out.println("reservation not found");
                                                 }
                                             }
+                                        case 5:
+                                            System.out.println("Enter your name");
+                                            String ReservationNam = sc.next();
+                                            System.out.println("Enter the password");
+                                            String ReservationPassword = sc.next();
+                                            for(ClientH Client : hotel.Clients){
+                                                if(ReservationNam.equals(Client.getName()) && ReservationPassword.equals(Client.getPassword())){
+                                                    System.out.println("Enter your reservation ID");
+                                                    int ReservationID = sc.nextInt();
+                                                    for(Reservation2 Reservation : hotel.Reservations){
+                                                        if(ReservationID == Reservation.getReservationID()){
+                                                            int oldNumberOfRooms = hotel.getNumberOfRooms();
+                                                            System.out.println("enter your new start date");
+                                                            String NewStartDate = sc.next();
+                                                            System.out.println("enter your new end date");
+                                                            String NewEndDate = sc.next();
+                                                            System.out.println("enter number of rooms you wanna reserve");
+                                                            int NewNumberOfRooms = sc.nextInt();
+                                                            int difference =  NewNumberOfRooms - oldNumberOfRooms ;
+                                                            Reservation.setReservationStartDate(NewStartDate);
+                                                            Reservation.setReservationEndDate(NewEndDate);
+                                                            Reservation.setReservedRooms(NewNumberOfRooms);
+                                                            hotel.numberOfRooms -= difference;
+                                                            System.out.println("Reservation edited successfully");
+                                                        }
+                                                    }
+                                                }
+                                            }
 
                                     }
                                 }if(loggedIn == false){
@@ -210,5 +238,15 @@ class Reservation2{
     public String getReservationEndDate() {
         return ReservationEndDate;
     }
+    public void setReservationStartDate(String ReservationStartDate){
+        this.ReservationStartDate = ReservationStartDate;
+    }
+    public void setReservationEndDate(String ReservationEndDate){
+        this.ReservationEndDate = ReservationEndDate;
+    }
+    public void setReservedRooms(int ReservedRooms){
+        this.ReservedRooms = ReservedRooms;
+    }
+
 
 }
